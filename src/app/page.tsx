@@ -1,103 +1,142 @@
-import Image from "next/image";
+"use client";
+import { useRef, useState } from "react";
+import { useEffect } from "react";
+import LandingPage from "./Landingpage";
+import TypingFrases from "./TypingFrases";
+import TypingReflection from "./TypingReflection";
+import { IoMusicalNotesOutline } from "react-icons/io5";
+import { TbMusicOff } from "react-icons/tb";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [clicked, setClicked] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    const playAudio = async () => {
+      try {
+        if (audioRef.current) {
+          await audioRef.current.play(); // Tenta tocar mesmo mutado
+        }
+      } catch (error) {
+        console.warn("Autoplay bloqueado pelo navegador:", error);
+      }
+    };
+
+    playAudio();
+  }, []);
+
+  const toggleMute = () => {
+    if (audioRef.current) {
+      const muted = !audioRef.current.muted;
+      audioRef.current.muted = muted;
+      setIsMuted(muted);
+      if (!muted) {
+        audioRef.current.play(); // Força play ao desmutar
+      }
+    }
+  };
+
+  const [mensagem, setMensagem] = useState<{
+    frases: string[];
+    reflexao: string;
+  } | null>(null);
+
+  const gerarMensagem = async () => {
+    const res = await fetch("/api/gerar-mensagem");
+    const data = await res.json();
+    setMensagem(data);
+    setClicked(true);
+  };
+
+  return (
+    <div className="flex flex-col justify-center items-center bg-black min-h-screen font-[family-name:var(--font-geist-sans)]">
+      {/* Música de fundo */}
+      <audio ref={audioRef} autoPlay muted loop>
+        <source
+          src="/Music/relaxing-ambient-music-rain-354479.mp3"
+          type="audio/mp3"
+        />
+      </audio>
+
+      {loggedIn ? (
+        !clicked ? (
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="text-yellow-500 text-xl max-md:text-xl">
+              Bem-vindo ao seu momento de inspiração!
+            </h1>
+            <p className="text-zinc-500 mt-2 text-center italic">
+              “Em 1 clique, você recebe algo inspirador para refletir no seu
+              dia.”
+            </p>
+            <p className="text-zinc-500 italic mt-2">
+              “Você só precisa dar um passo hoje.”
+            </p>
+            <p className="text-yellow-500 mt-5 font-mono ">
+              Uma faísca de inspiração te espera...
+            </p>
+            <button
+              id="btn-shine"
+              className="mt-8 btn-refletir"
+              onClick={() => {
+                setClicked(true);
+                gerarMensagem();
+              }}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <h1 className="hover:cursor-pointer text-gray-400 flex w-[40dvh] items-center justify-center text-xl">
+                Me Inspire
+              </h1>
+            </button>
+
+            {/* Ícone de música */}
+            <button
+              onClick={toggleMute}
+              className="mt-5 z-50 flex gap-1 items-center text-yellow-500 hover:text-yellow-600 hover:cursor-pointer transition-colors text-2xl"
+              title={isMuted ? "Desmutar música" : "Mutar música"}
+            >
+              <span className="text-gray-500 text-sm italic hover:text-yellow-600">
+                Clique aqui para ouvir uma trilha sonora relaxante
+              </span>
+              {isMuted ? (
+                <TbMusicOff />
+              ) : (
+                <IoMusicalNotesOutline className=" animate-pulse" />
+              )}
+            </button>
+          </div>
+        ) : (
+          // As 3 frases motivacionais e 1 reflexão
+          <div className="reflexao flex flex-col items-center justify-center gap-3 text-white">
+            <h2 className="text-2xl text-yellow-600 font-bold text-center">
+              Inspirações de hoje 🔥
+            </h2>
+
+            <div className="flex flex-col items-start justify-center font-mono p-6 bg-black/50 border-l-4 border-r-4 border-yellow-500 rounded-2xl shadow-md shadow-black w-[560px] max-md:w-[350px]  h-56 gap-4 mt-2">
+              {mensagem?.frases && <TypingFrases frases={mensagem.frases} />}
+            </div>
+
+            <h2 className="text-xl text-yellow-600 font-bold mt-6 text-center reflexao">
+              Um pensamento para refletir 💡
+            </h2>
+            <div className="group w-[560px] max-md:w-[350px] mt-4 p-6 bg-black/50 border-l-4 border-r-4 border-yellow-500 rounded-2xl shadow-md shadow-black min-h-[14rem] flex items-center justify-center overflow-hidden relative">
+              <p className="text-orange-100 italic font-semibold text-center leading-relaxed ">
+                {" "}
+                {mensagem?.reflexao && (
+                  <TypingReflection texto={mensagem.reflexao} />
+                )}{" "}
+              </p>
+            </div>
+          </div>
+        )
+      ) : (
+        <LandingPage />
+      )}
     </div>
   );
 }
