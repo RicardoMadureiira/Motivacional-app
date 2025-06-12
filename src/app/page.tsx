@@ -7,6 +7,7 @@ import TypingReflection from "./TypingReflection";
 import { IoMusicalNotesOutline } from "react-icons/io5";
 import { TbMusicOff } from "react-icons/tb";
 import CountdownButton from "./CountdownButton";
+import Image from "next/image";
 
 export default function Home() {
   const [clicked, setClicked] = useState(false);
@@ -36,7 +37,7 @@ export default function Home() {
       audioRef.current.muted = muted;
       setIsMuted(muted);
       if (!muted) {
-        audioRef.current.play(); // Força play ao desmutar
+        audioRef.current.play();
       }
     }
   };
@@ -54,7 +55,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center bg-black min-h-screen font-[family-name:var(--font-geist-sans)]">
+    <div className="bg-black min-h-screen font-[family-name:var(--font-geist-sans)] flex flex-col">
       {/* Música de fundo */}
       <audio ref={audioRef} autoPlay muted loop>
         <source
@@ -65,17 +66,24 @@ export default function Home() {
 
       {loggedIn ? (
         !clicked ? (
-          <div className="flex flex-col items-center justify-center">
-            <h1 className="text-yellow-500 text-xl max-md:text-xl">
-              Bem-vindo ao seu momento de inspiração!
+          <div className="flex flex-col items-center justify-center flex-grow">
+            <h1 className="text-yellow-500 text-xl flex items-center justify-center max-md:text-xl">
+              Bem-vindo ao Hoje Inspira{" "}
+              <span>
+                <Image
+                  className="animate-pulse"
+                  src="/Inspira-icon.png"
+                  alt="Foto"
+                  height={50}
+                  width={50}
+                />
+              </span>
             </h1>
             <p className="text-zinc-500 mt-2 text-center max-md:text-sm italic">
               “Em 1 clique, você recebe algo inspirador para refletir no seu
               dia.”
             </p>
-            <p className="text-zinc-500 max-md:text-sm italic mt-2">
-              “Você só precisa dar um passo hoje.”
-            </p>
+
             <p className="text-yellow-500 mt-8 font-mono ">
               Uma faísca de inspiração te espera...
             </p>
@@ -114,53 +122,102 @@ export default function Home() {
           </div>
         ) : (
           // 3 frases motivacionais e 1 reflexão
-          <div className="reflexao mt-10 flex-col items-center justify-center gap-3 text-white">
-            {/* Ícone de música */}
-            <button
-              onClick={toggleMute}
-              className="fixed top-1 right-2 z-10 text-yellow-500 hover:text-yellow-400 hover:scale-105 hover:cursor-pointer text-3xl"
-              title={isMuted ? "Desmutar música" : "Mutar música"}
-            >
-              {isMuted ? <TbMusicOff /> : <IoMusicalNotesOutline />}
-            </button>
-            <h2 className="text-2xl text-yellow-600 font-bold text-center">
-              Inspirações de hoje 🔥
-            </h2>
-
-            <div className="flex flex-col items-start justify-center font-mono p-6 bg-black/50 border-l-4 border-r-4 border-yellow-500 rounded-2xl shadow-md shadow-black w-[560px] max-md:w-[380px] h-5/6 gap-4 mt-2">
-              {mensagem?.frases && (
-                <TypingFrases
-                  frases={mensagem.frases}
-                  onFinished={() => setShowReflection(true)}
-                />
-              )}
-            </div>
-
-            {showReflection && (
-              <div>
-                <h2 className="text-xl text-yellow-600 font-bold mt-6 text-center reflexao">
-                  Um pensamento para refletir 💡
+          <div className="flex flex-col justify-center mt-20 items-center min-h-screen">
+            <div className="flex-grow">
+              <div className="reflexao w-4xl min-2xl:w-5xl max-md:w-sm p-2 text-white pt-8">
+                <h2
+                  className="text-4xl max-md:text-2xl flex items-center justify-center text-yellow-600 font-bold mb-8"
+                  id="text-shine"
+                >
+                  Inspirações de hoje{" "}
+                  <span>
+                    <Image
+                      className="animate-pulse"
+                      src="/Inspira-icon.png"
+                      alt="Foto"
+                      height={50}
+                      width={50}
+                    />
+                  </span>
                 </h2>
-                <div className="reflexao group w-[560px] max-md:w-[380px] mt-4 p-6 bg-black/50 border-l-4 border-r-4 border-yellow-500 rounded-2xl shadow-md shadow-black min-h-[14rem] flex items-center justify-center overflow-hidden relative">
-                  <p className="text-orange-100 italic font-semibold text-center leading-relaxed">
-                    {mensagem?.reflexao && (
-                      <TypingReflection texto={mensagem.reflexao} />
-                    )}
+
+                <div className="flex flex-col items-start text-2xl min-2xl:text-3xl min-2xl:ml-15 ml-7 gap-2 font-mono max-md:text-lg  mt-2">
+                  {mensagem?.frases && (
+                    <TypingFrases
+                      frases={mensagem.frases}
+                      onFinished={() => setShowReflection(true)}
+                    />
+                  )}
+                </div>
+
+                {showReflection && (
+                  <div className="pb-12">
+                    <h2 className="text-3xl max-md:text-xl text-yellow-600 font-bold mt-10 text-center reflexao">
+                      Um pensamento para refletir{" "}
+                      <span className="animate-pulse">💡</span>
+                    </h2>
+                    <div className="reflexao mt-5 group border-yellow-500 rounded-2xl flex items-center justify-center ">
+                      <p className="text-orange-100 italic font-semibold text-center leading-relaxed">
+                        {mensagem?.reflexao && (
+                          <TypingReflection texto={mensagem.reflexao} />
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="h-[80vh]"></div>
+            {/* Rodapé  */}
+            <footer className="bg-black border-t-2 border-yellow-500 w-full p-10 mt-auto">
+              <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm space-y-4 md:space-y-0">
+                <div className="text-center md:text-left">
+                  <p className="text-yellow-500 text-lg font-semibold mb-1">
+                    Hoje Inspira 🔥
+                  </p>
+                  <p>
+                    Um espaço digital criado para acender pequenas faíscas no
+                    seu dia
+                  </p>
+                  <p className="mt-1">
+                    Construído do zero por{" "}
+                    <a
+                      href="https://www.linkedin.com/in/ricardo-madureira-490022245/"
+                      target="_blank"
+                      className="text-red-500 font-medium hover:text-red-400 transition"
+                    >
+                      Ricardo Madureira
+                    </a>
                   </p>
                 </div>
-                <p className="text-yellow-400 text-center mt-4 max-md:text-sm">
-                  🎯 Desafio de hoje:{" "}
-                  <span className="text-white">
-                    “ Elogie alguém que você admira. ”
-                  </span>
-                </p>
-                <div className="mt-12">
-                  <CountdownButton />
+
+                <div className="flex space-x-4">
+                  <a
+                    href="mailto:ricardomadureira.dev@gmail.com"
+                    className="hover:text-white"
+                  >
+                    Email
+                  </a>
+                  <a href="#" className="hover:text-white">
+                    Portfolio
+                  </a>
+                  <a
+                    href="https://github.com/RicardoMadureiira"
+                    target="_blank"
+                    className="hover:text-white"
+                  >
+                    Github
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/ricardo-madureira-490022245/"
+                    target="_blank"
+                    className="hover:text-white"
+                  >
+                    LinkedIn
+                  </a>
                 </div>
               </div>
-            )}
-
-            <footer className="fixed h-screen flex items-center justify-center "></footer>
+            </footer>
           </div>
         )
       ) : (

@@ -34,6 +34,15 @@ body {
   animation: shine 3s infinite linear;
 }
 
+#text-shine {
+  background: linear-gradient(to right, #ca8a04 0, #ef4444 10%, #fb923c 20%);
+  background-size: 200% auto;
+  background-position: 0%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 5s infinite linear;
+}
+
 @keyframes shine {
   0% {
     background-position: 0%;

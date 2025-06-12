@@ -24,10 +24,10 @@ export default function TypingReflection({
   }, [charIndex, texto, speed]);
 
   return (
-    <p className="text-white italic text-center leading-relaxed">
-      <span className="animate-pulse text-orange-100">“</span>
+    <p className="text-gray-100 italic text-center font-thin text-2xl max-md:text-xl leading-relaxed">
+      <span className="animate-pulse text-orange-100">“ </span>
       {textoAtual}
-      <span className="animate-pulse text-orange-100">”</span>
+      <span className="animate-pulse text-orange-100"> ”</span>
     </p>
   );
 }
