@@ -6,6 +6,7 @@ import TypingFrases from "./TypingFrases";
 import TypingReflection from "./TypingReflection";
 import { IoMusicalNotesOutline } from "react-icons/io5";
 import { TbMusicOff } from "react-icons/tb";
+import { FcIdea } from "react-icons/fc";
 import CountdownButton from "./CountdownButton";
 import Image from "next/image";
 
@@ -14,6 +15,22 @@ export default function Home() {
   const [loggedIn, setLoggedIn] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [showReflection, setShowReflection] = useState(false);
+  const [streak, setStreak] = useState(0);
+
+  useEffect(() => {
+    const storedStreak = localStorage.getItem("streak");
+    if (storedStreak) {
+      setStreak(parseInt(storedStreak, 10));
+    }
+  }, []);
+
+  const handleClick = () => {
+    setClicked(true);
+    gerarMensagem();
+    const newStreak = streak + 1;
+    setStreak(newStreak);
+    localStorage.setItem("streak", newStreak.toString());
+  };
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -56,6 +73,18 @@ export default function Home() {
 
   return (
     <div className="bg-black min-h-screen font-[family-name:var(--font-geist-sans)] flex flex-col">
+      <div id="lines">
+        <div id="line"></div>
+        <div id="line"></div>
+        <div id="line"></div>
+        <div id="line"></div>
+        <div id="line"></div>
+        <div id="line"></div>
+        <div id="line"></div>
+        <div id="line"></div>
+        <div id="line"></div>
+        <div id="line"></div>
+      </div>
       {/* Música de fundo */}
       <audio ref={audioRef} autoPlay muted loop>
         <source
@@ -90,10 +119,7 @@ export default function Home() {
             <button
               id="btn-shine"
               className="mt-6 btn-refletir"
-              onClick={() => {
-                setClicked(true);
-                gerarMensagem();
-              }}
+              onClick={handleClick}
             >
               <span></span>
               <span></span>
@@ -123,12 +149,9 @@ export default function Home() {
         ) : (
           // 3 frases motivacionais e 1 reflexão
           <div className="flex flex-col justify-center mt-20 items-center min-h-screen">
-            <div className="flex-grow">
+            <div className="flex-grow h-screen">
               <div className="reflexao w-4xl min-2xl:w-5xl max-md:w-sm p-2 text-white pt-8">
-                <h2
-                  className="text-4xl max-md:text-2xl flex items-center justify-center text-yellow-600 font-bold mb-8"
-                  id="text-shine"
-                >
+                <h2 className="text-4xl max-md:text-2xl flex items-center justify-center text-yellow-600 font-bold mb-8">
                   Inspirações de hoje{" "}
                   <span>
                     <Image
@@ -152,9 +175,11 @@ export default function Home() {
 
                 {showReflection && (
                   <div className="pb-12">
-                    <h2 className="text-3xl max-md:text-xl text-yellow-600 font-bold mt-10 text-center reflexao">
+                    <h2 className="text-3xl flex justify-center max-md:text-xl text-yellow-600 font-bold mt-10 text-center reflexao">
                       Um pensamento para refletir{" "}
-                      <span className="animate-pulse">💡</span>
+                      <span className="animate-pulse ml-2">
+                        <FcIdea />
+                      </span>
                     </h2>
                     <div className="reflexao mt-5 group border-yellow-500 rounded-2xl flex items-center justify-center ">
                       <p className="text-orange-100 italic font-semibold text-center leading-relaxed">
@@ -167,17 +192,40 @@ export default function Home() {
                 )}
               </div>
             </div>
-            <div className="h-[80vh]"></div>
+
+            <div>
+              {/* Streak */}
+              <div className="mb-6 text-yellow-500">
+                <p className="text-lg max-md:text-sm">
+                  🔥 Faíscas seguidas:{" "}
+                  <span className="text-orange-400 font-bold">{streak}</span>{" "}
+                  {streak === 1 ? "dia" : "dias"} mantendo sua inspiração acesa.
+                </p>
+                <p className="text-sm text-zinc-400 italic text-center">
+                  Mantenha a sequência viva!
+                </p>
+              </div>
+              <CountdownButton />
+            </div>
+            <div className="h-[20vh]"></div>
             {/* Rodapé  */}
-            <footer className="bg-black border-t-2 border-yellow-500 w-full p-10 mt-auto">
+            <footer className="bg-black border-t-2 border-yellow-800 w-full p-10 mt-auto z-10">
               <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm space-y-4 md:space-y-0">
                 <div className="text-center md:text-left">
-                  <p className="text-yellow-500 text-lg font-semibold mb-1">
-                    Hoje Inspira 🔥
+                  <p className="text-yellow-500 text-lg font-semibold mb-1 flex items-center max-md:justify-center">
+                    Hoje Inspira{" "}
+                    <span>
+                      <Image
+                        src="/Inspira-icon.png"
+                        alt="Foto"
+                        height={30}
+                        width={30}
+                      />
+                    </span>
                   </p>
                   <p>
                     Um espaço digital criado para acender pequenas faíscas no
-                    seu dia
+                    seu dia.
                   </p>
                   <p className="mt-1">
                     Construído do zero por{" "}

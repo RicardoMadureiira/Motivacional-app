@@ -51,7 +51,7 @@ export default function InspireButton({ onInspire }: InspireButtonProps) {
       <button
         disabled={!canInspire}
         onClick={handleClick}
-        className={`mt-2 px-6 py-4 rounded-xl border border-yellow-600 text-gray-300 text-lg flex flex-col items-center transition-all duration-300 ${
+        className={`mt-2 px-12 py-4 rounded-xl border border-yellow-600 text-gray-300 text-lg flex flex-col items-center transition-all duration-300 ${
           !canInspire ? "opacity-50 cursor-not-allowed" : "hover:scale-105"
         }`}
       >
@@ -60,6 +60,7 @@ export default function InspireButton({ onInspire }: InspireButtonProps) {
           <span className="text-white">{nextReset}</span>
         </span>
       </button>
+      <p className="text-sm mt-2 text-zinc-500">Apenas 1 clique por dia!</p>
     </div>
   );
 }
