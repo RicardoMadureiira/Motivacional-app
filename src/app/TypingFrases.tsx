@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 interface TypingFrasesProps {
   frases: string[];
   speed?: number;
-  onFinished?: () => void; // NOVO
+  onFinished?: () => void;
 }
 
 export default function TypingFrases({
   frases,
   speed = 50,
-  onFinished, // NOVO
+  onFinished,
 }: TypingFrasesProps) {
   const [linhas, setLinhas] = useState<string[]>([]);
   const [linhaAtual, setLinhaAtual] = useState(0);
@@ -25,25 +25,25 @@ export default function TypingFrases({
     if (charIndex < frase.length) {
       const timeout = setTimeout(() => {
         setTextoAtual((prev) => prev + frase[charIndex]);
-        setCharIndex(charIndex + 1);
+        setCharIndex((prev) => prev + 1);
       }, speed);
       return () => clearTimeout(timeout);
     } else {
       const timeout = setTimeout(() => {
         setLinhas((prev) => [...prev, frase]);
         setTextoAtual("");
-        setLinhaAtual((prev) => {
-          const next = prev + 1;
-          if (next === frases.length) {
-            onFinished?.(); // CHAMA QUANDO TERMINA
-          }
-          return next;
-        });
+        setLinhaAtual((prev) => prev + 1);
         setCharIndex(0);
       }, 600);
       return () => clearTimeout(timeout);
     }
-  }, [charIndex, linhaAtual, frases, speed, onFinished]);
+  }, [charIndex, linhaAtual, frases, speed]);
+
+  useEffect(() => {
+    if (linhaAtual === frases.length) {
+      onFinished?.();
+    }
+  }, [linhaAtual, frases.length, onFinished]);
 
   return (
     <>
