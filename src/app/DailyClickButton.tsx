@@ -72,7 +72,7 @@ const DailyClickButton = ({
           className={`flex w-[40dvh] items-center justify-center text-xl ${
             isDisabled
               ? "text-gray-600 hover:cursor-not-allowed"
-              : "hover:cursor-not-allowed text-gray-500"
+              : "text-gray-500"
           }`}
         >
           {isDisabled ? "Faísca já acesa!" : "Me Inspire"}
