@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔥 Inspiração Diária
 
-## Getting Started
+> Um app minimalista e interativo que entrega uma mensagem inspiradora por dia. Ideal para cultivar pausas e reflexões com leveza e propósito.
 
-First, run the development server:
+## 📸 Preview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![HojeInspiraIMG](https://github.com/user-attachments/assets/11d8bcd3-6688-4490-aca0-6af61b7ddabc)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔗 Acesse Online
 
-## Learn More
+[🔗 Veja o projeto em produção](https://motivacional-app.vercel.app/)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Tecnologias Utilizadas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Next.js + React**
+- **TypeScript**
+- **TailwindCSS**
+- **React Icons**
+- **LocalStorage** para controle de uso diário
+- **Efeito de digitação (typing effect)**
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ⚙️ Funcionalidades
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- ✅ Gera frases e uma reflexão nova por dia
+- 🔒 Bloqueio inteligente para impedir múltiplos cliques no mesmo dia
+- ⏳ Cronômetro com tempo restante até a próxima liberação
+- 📖 Opção para visualizar a última inspiração mesmo após o bloqueio
+- 🎨 Interface com animações suaves e responsiva
+
+---
+
+## 🧠 Como funciona a lógica diária?
+
+- O botão só pode ser clicado **uma vez por dia**
+- A data do clique é salva no `localStorage`
+- Após clicar, um contador aparece mostrando o tempo até a próxima liberação
+- O usuário ainda pode visualizar a última inspiração, mesmo com o botão bloqueado
+
+---
+
+
