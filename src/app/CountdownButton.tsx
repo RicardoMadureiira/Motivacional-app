@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FaHourglassHalf } from "react-icons/fa";
 
 interface InspireButtonProps {
-  onInspire: () => void;
+  onInspire?: () => void; // agora opcional
 }
 
 export default function InspireButton({ onInspire }: InspireButtonProps) {
@@ -33,14 +33,16 @@ export default function InspireButton({ onInspire }: InspireButtonProps) {
     };
 
     checkInspirationStatus();
-    const interval = setInterval(checkInspirationStatus, 60000); // atualiza a cada minuto
+    const interval = setInterval(checkInspirationStatus, 60000);
     return () => clearInterval(interval);
   }, []);
 
   const handleClick = () => {
+    if (!canInspire) return;
+
     localStorage.setItem("lastInspiration", new Date().toDateString());
     setCanInspire(false);
-    onInspire();
+    onInspire?.(); // só chama se tiver sido passada
   };
 
   return (
