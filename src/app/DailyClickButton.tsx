@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { FaEye } from "react-icons/fa";
+import { ImBlocked } from "react-icons/im";
 
 interface DailyClickButtonProps {
   onDailyClick: () => void;
@@ -69,16 +70,16 @@ const DailyClickButton = ({
         <span></span>
         <span></span>
         <h1
-          className={`flex w-[40dvh] items-center justify-center text-xl ${
+          className={`flex w-[40dvh] items-center justify-center text-xl gap-2 ${
             isDisabled
               ? "text-gray-600 hover:cursor-not-allowed"
               : "text-gray-500"
           }`}
         >
+          {isDisabled && <ImBlocked className="text-white" />}
           {isDisabled ? "Faísca já acesa!" : "Me Inspire"}
         </h1>
       </button>
-
       {/* Botão para ver última mensagem quando está bloqueado */}
       {isDisabled && onViewLastMessage && (
         <button
