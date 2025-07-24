@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { FaEye } from "react-icons/fa";
 
 interface DailyClickButtonProps {
   onDailyClick: () => void;
@@ -71,7 +72,7 @@ const DailyClickButton = ({
           className={`flex w-[40dvh] items-center justify-center text-xl ${
             isDisabled
               ? "text-gray-600 hover:cursor-not-allowed"
-              : "hover:cursor-not-allowed text-gray-400"
+              : "hover:cursor-not-allowed text-gray-500"
           }`}
         >
           {isDisabled ? "Faísca já acesa!" : "Me Inspire"}
@@ -84,9 +85,10 @@ const DailyClickButton = ({
           onClick={() => {
             onViewLastMessage();
           }}
-          className="z-100 mt-4 px-6 py-2 border border-yellow-600 text-yellow-500 rounded-lg hover:bg-yellow-600 hover:text-black transition-all duration-300 text-sm font-medium cursor-pointer"
+          className="z-100 flex items-center gap-2 mt-4 px-5 py-2 border border-yellow-600 text-yellow-500 rounded-lg hover:bg-yellow-600 hover:text-black transition-all duration-300 text-sm font-medium cursor-pointer"
         >
-          📖 Ver Última Inspiração
+          <FaEye />
+          <span className="">Ver Última Inspiração</span>
         </button>
       )}
     </div>
