@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FaHourglassHalf } from "react-icons/fa";
 
 interface InspireButtonProps {
-  onInspire?: () => void; // agora opcional
+  onInspire?: () => void;
 }
 
 export default function InspireButton({ onInspire }: InspireButtonProps) {
@@ -42,7 +42,7 @@ export default function InspireButton({ onInspire }: InspireButtonProps) {
 
     localStorage.setItem("lastInspiration", new Date().toDateString());
     setCanInspire(false);
-    onInspire?.(); // só chama se tiver sido passada
+    onInspire?.();
   };
 
   return (
