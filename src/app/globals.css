@@ -185,7 +185,7 @@ body {
   margin: auto;
   width: 90vw;
   display: flex;
-  justify-content: space-between; /* Distribute lines evenly */
+  justify-content: space-between;
 }
 
 #line {
@@ -215,7 +215,6 @@ body {
   animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 }
 
-/* Different colors for each line's pseudo-element */
 #line:nth-child(1)::after {
   background: linear-gradient(
     to bottom,
