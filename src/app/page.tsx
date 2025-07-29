@@ -244,7 +244,11 @@ export default function Home() {
                 >
                   Email
                 </a>
-                <a href="#" className="hover:text-white">
+                <a
+                  href="https://my-portfolio-sooty-two-74.vercel.app/"
+                  target="_blank"
+                  className="hover:text-white"
+                >
                   Portfolio
                 </a>
                 <a
