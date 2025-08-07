@@ -6,7 +6,6 @@
 
 ![Animação](https://github.com/user-attachments/assets/a739d2f8-93b8-4197-becb-707ea877adb4)
 
-![HojeInspiraIMG](https://github.com/user-attachments/assets/11d8bcd3-6688-4490-aca0-6af61b7ddabc)
 
 ---
 
