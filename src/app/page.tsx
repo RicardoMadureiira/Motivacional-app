@@ -126,24 +126,22 @@ export default function Home() {
           />
         </div>
       ) : (
-        // Tela com frases + reflexão
+        // Tabela com frases + reflexão
         <div className="flex flex-col justify-center mt-20 items-center min-h-screen">
           <div className="flex-grow h-screen">
             <div className="w-4xl min-2xl:w-5xl max-md:w-sm p-2 text-white pt-8">
               <header className="flex flex-col items-center w-full mb-12">
-                {/* Subtítulo discreto acima (opcional, mas dá um charme) */}
                 <span className="text-zinc-700 font-black text-[10px] uppercase tracking-[0.5em] mb-2">
                   Sua dose diária
                 </span>
 
                 <div className="flex items-center justify-center gap-4 w-full">
-                  {/* Linha da esquerda com degradê para sumir suavemente */}
+                  {/* Linha da esquerda */}
                   <div className="h-[1px] flex-grow max-w-[40px] md:max-w-[80px] bg-gradient-to-r from-transparent to-zinc-800"></div>
 
                   <h2 className="text-2xl md:text-4xl flex items-center gap-3 text-zinc-500 font-light tracking-[0.2em] uppercase">
                     Inspirações
                     <div className="relative">
-                      {/* Glow suave atrás do ícone */}
                       <div className="absolute inset-0 bg-amber-500/20 blur-xl rounded-full animate-pulse"></div>
                       <Image
                         className="relative z-10 opacity-80"
@@ -155,7 +153,7 @@ export default function Home() {
                     </div>
                   </h2>
 
-                  {/* Linha da direita com degradê */}
+                  {/* Linha da direita */}
                   <div className="h-[1px] flex-grow max-w-[40px] md:max-w-[80px] bg-gradient-to-l from-transparent to-zinc-800"></div>
                 </div>
               </header>
@@ -173,7 +171,7 @@ export default function Home() {
 
               {showReflection && (
                 <div className="pb-12 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-                  {/* Container do Título com as bordinhas laterais */}
+                  {/* Container do Título */}
                   <div className="flex items-center justify-center gap-4 mt-10 mb-6">
                     {/* Linha da esquerda */}
                     <div className="h-[1px] flex-grow max-w-[50px] bg-zinc-800"></div>
@@ -237,10 +235,8 @@ export default function Home() {
       {/* Rodapé */}
       <footer className="border-t border-white/[0.05] bg-black/40 backdrop-blur-2xl w-full py-10 px-6 mt-auto z-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
-          {/* Lado Esquerdo: Branding */}
           <div className="text-center md:text-left group cursor-default">
             <div className="flex items-center gap-2 max-md:justify-center mb-2">
-              {/* Diminuído de text-base/lg para text-xs/sm */}
               <p className="text-zinc-200 text-xs md:text-sm font-black tracking-[0.2em] uppercase group-hover:text-amber-500 transition-colors duration-500">
                 Hoje Inspira
               </p>
@@ -253,7 +249,6 @@ export default function Home() {
               />
             </div>
 
-            {/* Diminuído para 9px no mobile e 10px no desktop */}
             <p className="text-zinc-500 text-[9px] md:text-[10px] uppercase tracking-[0.15em] font-semibold leading-relaxed">
               Construído do zero por{" "}
               <a
@@ -267,7 +262,6 @@ export default function Home() {
           </div>
 
           {/* Lado Direito: Links Sociais */}
-          {/* Diminuído para 9px no mobile e 10px no desktop */}
           <nav className="flex flex-wrap justify-center items-center gap-x-6 gap-y-3 text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-zinc-500 font-bold">
             <a
               href="mailto:ricardomadureira.dev@gmail.com"
