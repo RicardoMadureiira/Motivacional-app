@@ -47,7 +47,7 @@ export default function InspireButton({ onInspire }: InspireButtonProps) {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <span className="text-xl text-zinc-600 font-light">
+      <span className="text-md text-zinc-600 font-light uppercase tracking-[0.2em]">
         Próxima Inspiração em:
       </span>
       <button
@@ -62,7 +62,9 @@ export default function InspireButton({ onInspire }: InspireButtonProps) {
           <span className="text-white">{nextReset}</span>
         </span>
       </button>
-      <p className="text-sm mt-2 text-zinc-500">Apenas 1 clique por dia!</p>
+      <p className="text-[9.5px] uppercase tracking-[0.2em] mt-2 text-zinc-500">
+        Apenas 1 clique por dia!
+      </p>
     </div>
   );
 }
